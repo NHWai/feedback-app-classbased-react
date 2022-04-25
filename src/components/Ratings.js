@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class Ratings extends Component {
-  // state = { rating: null };
-
   handleRate = (e) => {
-    // this.setState({ rating: e.target.value });
-    this.props.onRatingChange(e.target.value);
+    e.preventDefault();
+    this.props.onRatingChange(e);
   };
 
   render() {

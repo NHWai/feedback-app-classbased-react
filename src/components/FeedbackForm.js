@@ -2,23 +2,45 @@ import React, { Component } from "react";
 import Card from "./shared/Card";
 import styled from "styled-components";
 import Ratings from "./Ratings";
+import axios from "axios";
 
 export default class FeedbackForm extends Component {
   state = { text: "", rating: null };
 
   onTextChange = (e) => {
     e.preventDefault();
-    this.setState({ text: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  onRatingChange = (rate) => {
-    this.setState({ rating: rate });
+  onRatingChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmitChange = (e) => {
     e.preventDefault();
-    console.log(this.state);
+
+    if (this.props.edit.isEdited) {
+      axios.put(
+        `http://localhost:5000/feedback/${this.props.edit.editFeed.id}`
+      );
+      this.props.clearEditFeed();
+    } else {
+      axios
+        .post("http://localhost:5000/feedback", this.state)
+        .then((res) => this.props.feed(res.data))
+        .catch((err) => console.log(err));
+      this.setState({ text: "", rating: null });
+    }
   };
+
+  static getDerivedStateFromProps(props, current_state) {
+    if (props.edit.isEdited) {
+      return {
+        text: props.edit.editFeed.text,
+        rating: props.edit.editFeed.rating,
+      };
+    }
+  }
 
   render() {
     return (
@@ -29,6 +51,7 @@ export default class FeedbackForm extends Component {
           <Field>
             <Input
               type="text"
+              name="text"
               onChange={this.onTextChange}
               value={this.state.text}
               placeholder="Write a review"
