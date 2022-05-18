@@ -37,7 +37,6 @@ export default class FeedbackItem extends Component {
               top: "10px",
               color: "midnightblue",
             }}
-            onClick={(e) => this.postEdit(this.props.item, e)}
           />
           <FaTimes
             style={{

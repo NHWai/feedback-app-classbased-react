@@ -7,7 +7,6 @@ export default class FeedbackLists extends Component {
       <FeedbackItem
         key={idx}
         deleteFeedback={this.props.deleteFeedback}
-        editFeedback={this.props.editFeedback}
         item={item}
       />
     ));

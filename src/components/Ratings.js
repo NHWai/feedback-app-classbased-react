@@ -2,9 +2,21 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class Ratings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: "1",
+    };
+
+    this.props.onRatingChange(this.state.selected);
+  }
+
+  active = { backgroundColor: "red", color: "#fff", border: "none" };
+
   handleRate = (e) => {
-    e.preventDefault();
-    this.props.onRatingChange(e);
+    this.setState({ selected: e.target.value }, () =>
+      this.props.onRatingChange(this.state.selected)
+    );
   };
 
   render() {
@@ -17,15 +29,26 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="1">1</Rate>
+        <Rate
+          style={this.state.selected === "1" ? this.active : null}
+          htmlFor="1"
+        >
+          1
+        </Rate>
         <Input
           id="2"
           type="radio"
           value="2"
           name="rating"
           onChange={this.handleRate}
+          defalutChecked={this.state.selected === 2}
         />
-        <Rate htmlFor="2">2</Rate>
+        <Rate
+          style={this.state.selected === "2" ? this.active : null}
+          htmlFor="2"
+        >
+          2
+        </Rate>
         <Input
           type="radio"
           value="3"
@@ -33,7 +56,12 @@ export default class Ratings extends Component {
           onChange={this.handleRate}
           id="3"
         />
-        <Rate htmlFor="3">3</Rate>
+        <Rate
+          style={this.state.selected === "3" ? this.active : null}
+          htmlFor="3"
+        >
+          3
+        </Rate>
         <Input
           type="radio"
           value="4"
@@ -41,7 +69,12 @@ export default class Ratings extends Component {
           onChange={this.handleRate}
           id="4"
         />
-        <Rate htmlFor="4">4</Rate>
+        <Rate
+          style={this.state.selected === "4" ? this.active : null}
+          htmlFor="4"
+        >
+          4
+        </Rate>
         <Input
           id="5"
           type="radio"
@@ -49,7 +82,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="5">5</Rate>
+        <Rate
+          style={this.state.selected === "5" ? this.active : null}
+          htmlFor="5"
+        >
+          5
+        </Rate>
         <Input
           id="6"
           type="radio"
@@ -57,7 +95,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="6">6</Rate>
+        <Rate
+          style={this.state.selected === "6" ? this.active : null}
+          htmlFor="6"
+        >
+          6
+        </Rate>
         <Input
           id="7"
           type="radio"
@@ -65,7 +108,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="7">7</Rate>
+        <Rate
+          style={this.state.selected === "7" ? this.active : null}
+          htmlFor="7"
+        >
+          7
+        </Rate>
         <Input
           id="8"
           type="radio"
@@ -73,7 +121,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="8">8</Rate>
+        <Rate
+          style={this.state.selected === "8" ? this.active : null}
+          htmlFor="8"
+        >
+          8
+        </Rate>
         <Input
           id="9"
           type="radio"
@@ -81,7 +134,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="9">9</Rate>
+        <Rate
+          style={this.state.selected === "9" ? this.active : null}
+          htmlFor="9"
+        >
+          9
+        </Rate>
         <Input
           id="10"
           type="radio"
@@ -89,7 +147,12 @@ export default class Ratings extends Component {
           name="rating"
           onChange={this.handleRate}
         />
-        <Rate htmlFor="10">10</Rate>
+        <Rate
+          style={this.state.selected === "10" ? this.active : null}
+          htmlFor="10"
+        >
+          10
+        </Rate>
       </RatingContainer>
     );
   }
@@ -110,6 +173,12 @@ const Rate = styled.label`
   display: grid;
   place-items: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: red;
+    color: #fff;
+    border: none;
+  }
 `;
 
 const Input = styled.input`

@@ -9,8 +9,8 @@ import axios from "axios";
 class App extends React.Component {
   state = {
     data: [],
+    msg: "",
     errorMessage: "",
-    edit: { isEdited: false, editFeed: "" },
   };
 
   getFeedback = async () => {
@@ -37,10 +37,6 @@ class App extends React.Component {
     this.setState({ edit: { isEdited: true, editFeed: feed } });
   };
 
-  clearEditFeed = () => {
-    this.setState({ edit: { isEdited: false, editFeed: "" } });
-  };
-
   componentDidMount() {
     this.getFeedback();
   }
@@ -50,15 +46,10 @@ class App extends React.Component {
       <div className="app">
         <Header />
         <Container>
-          <FeedbackForm
-            feed={this.addFeedback}
-            edit={this.state.edit}
-            clearEditFeed={this.clearEditFeed}
-          />
+          <FeedbackForm feed={this.addFeedback} />
           <FeedbackLists
             feedbacks={this.state.data}
             deleteFeedback={this.deleteFeedback}
-            editFeedback={this.editFeedback}
           />
         </Container>
         <Footer />

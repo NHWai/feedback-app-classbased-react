@@ -12,35 +12,18 @@ export default class FeedbackForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onRatingChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  onRatingChange = (value) => {
+    this.setState({ rating: value });
   };
 
   onSubmitChange = (e) => {
     e.preventDefault();
-
-    if (this.props.edit.isEdited) {
-      axios.put(
-        `http://localhost:5000/feedback/${this.props.edit.editFeed.id}`
-      );
-      this.props.clearEditFeed();
-    } else {
-      axios
-        .post("http://localhost:5000/feedback", this.state)
-        .then((res) => this.props.feed(res.data))
-        .catch((err) => console.log(err));
-      this.setState({ text: "", rating: null });
-    }
+    axios
+      .post("http://localhost:5000/feedback", this.state)
+      .then((res) => this.props.feed(res.data))
+      .catch((err) => console.log(err));
+    this.setState({ text: "" });
   };
-
-  static getDerivedStateFromProps(props, current_state) {
-    if (props.edit.isEdited) {
-      return {
-        text: props.edit.editFeed.text,
-        rating: props.edit.editFeed.rating,
-      };
-    }
-  }
 
   render() {
     return (
@@ -55,6 +38,7 @@ export default class FeedbackForm extends Component {
               onChange={this.onTextChange}
               value={this.state.text}
               placeholder="Write a review"
+              autoComplete="off"
             />
             <Button type="submit">Send</Button>
           </Field>
