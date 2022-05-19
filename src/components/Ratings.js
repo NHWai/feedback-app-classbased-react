@@ -11,6 +11,17 @@ export default class Ratings extends Component {
     this.props.onRatingChange(this.state.selected);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.editData.id !== this.props.editData.id) {
+      const { edited, text, rating, id } = this.props.editData;
+      if (edited) {
+        this.setState({
+          selected: rating,
+        });
+      }
+    }
+  }
+
   active = { backgroundColor: "red", color: "#fff", border: "none" };
 
   handleRate = (e) => {

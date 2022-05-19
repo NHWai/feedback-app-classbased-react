@@ -9,8 +9,7 @@ import axios from "axios";
 class App extends React.Component {
   state = {
     data: [],
-    msg: "",
-    rating: "",
+    editData: { edited: false, text: "", rating: "", id: "" },
     errorMessage: "",
   };
 
@@ -34,11 +33,32 @@ class App extends React.Component {
     this.setState({ data: this.state.data.filter((el) => el.id !== id) });
   };
 
+  turnEditState = () => {
+    console.log("run");
+    this.setState({
+      editData: {
+        edited: false,
+        text: "",
+        rating: "",
+        id: "",
+      },
+    });
+  };
+
   editFeedback = (id) => {
     const filteredData = this.state.data.filter((el) => el.id !== id);
 
+    this.setState({ data: filteredData });
+
     const selectedData = this.state.data.find((el) => el.id === id);
-    console.log(selectedData);
+    this.setState({
+      editData: {
+        edited: true,
+        text: selectedData.text,
+        rating: selectedData.rating,
+        id: selectedData.id,
+      },
+    });
   };
 
   componentDidMount() {
@@ -50,7 +70,11 @@ class App extends React.Component {
       <div className="app">
         <Header />
         <Container>
-          <FeedbackForm feed={this.addFeedback} />
+          <FeedbackForm
+            editData={this.state.editData}
+            feed={this.addFeedback}
+            turnEditState={this.turnEditState}
+          />
           <FeedbackLists
             feedbacks={this.state.data}
             deleteFeedback={this.deleteFeedback}

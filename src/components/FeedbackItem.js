@@ -22,11 +22,7 @@ export default class FeedbackItem extends Component {
     return (
       <div>
         <Card>
-          <Text>
-            {text}
-            <br />
-            id is {id}
-          </Text>
+          <Text>{text}</Text>
           <Rating>
             <div>{rating}</div>
           </Rating>
@@ -36,6 +32,7 @@ export default class FeedbackItem extends Component {
               right: "30px",
               top: "10px",
               color: "midnightblue",
+              cursor: "pointer",
             }}
             onClick={(e) => this.postEdit(id, e)}
           />
@@ -45,6 +42,7 @@ export default class FeedbackItem extends Component {
               right: "10px",
               top: "10px",
               color: "red",
+              cursor: "pointer",
             }}
             onClick={(e) => this.postDel(id, e)}
           />

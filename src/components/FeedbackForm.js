@@ -7,6 +7,22 @@ import axios from "axios";
 export default class FeedbackForm extends Component {
   state = { text: "", rating: null };
 
+  componentDidMount() {
+    console.log("mounted");
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.editData.id !== this.props.editData.id) {
+      const { edited, text, rating, id } = this.props.editData;
+      if (edited) {
+        this.setState({
+          text: text,
+          rating: rating,
+        });
+      }
+    }
+  }
+
   onTextChange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
@@ -18,10 +34,22 @@ export default class FeedbackForm extends Component {
 
   onSubmitChange = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/feedback", this.state)
-      .then((res) => this.props.feed(res.data))
-      .catch((err) => console.log(err));
+    if (!this.props.editData.edited) {
+      axios
+        .post("http://localhost:5000/feedback", this.state)
+        .then((res) => this.props.feed(res.data))
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .patch(
+          `http://localhost:5000/feedback/${this.props.editData.id}`,
+          this.state
+        )
+        .then((res) => this.props.feed(res.data))
+        .then(() => this.props.turnEditState());
+      // setInterval(this.props.turnEditState, 500);
+      // this.props.turnEditState();
+    }
     this.setState({ text: "" });
   };
 
@@ -30,7 +58,10 @@ export default class FeedbackForm extends Component {
       <Card>
         <form onSubmit={this.onSubmitChange}>
           <h1>How would you rate your service with us?</h1>
-          <Ratings onRatingChange={this.onRatingChange} />
+          <Ratings
+            editData={this.props.editData}
+            onRatingChange={this.onRatingChange}
+          />
           <Field>
             <Input
               type="text"

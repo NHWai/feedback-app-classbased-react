@@ -1,34 +1,19 @@
 {
   "feedback": [
     {
-      "text": "it's cow",
-      "rating": "6",
-      "id": 5
-    },
-    {
-      "text": "okay",
-      "rating": "1",
+      "text": "good",
+      "rating": "4",
       "id": 6
     },
     {
-      "text": "better than okay",
-      "rating": "7",
+      "text": "better",
+      "rating": "5",
       "id": 7
     },
     {
-      "text": "okay but sacarstic",
-      "rating": "1",
+      "text": "best",
+      "rating": "6",
       "id": 8
-    },
-    {
-      "text": "fout",
-      "rating": "4",
-      "id": 9
-    },
-    {
-      "text": "another ",
-      "rating": "4",
-      "id": 10
     }
   ]
 }
