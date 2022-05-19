@@ -11,9 +11,9 @@ export default class FeedbackItem extends Component {
     axios.delete(`http://localhost:5000/feedback/${id}`);
   };
 
-  postEdit = (feed, e) => {
+  postEdit = (id, e) => {
     e.preventDefault();
-    this.props.editFeedback(feed);
+    this.props.editFeedback(id);
   };
 
   render() {
@@ -37,6 +37,7 @@ export default class FeedbackItem extends Component {
               top: "10px",
               color: "midnightblue",
             }}
+            onClick={(e) => this.postEdit(id, e)}
           />
           <FaTimes
             style={{

@@ -10,6 +10,7 @@ class App extends React.Component {
   state = {
     data: [],
     msg: "",
+    rating: "",
     errorMessage: "",
   };
 
@@ -33,8 +34,11 @@ class App extends React.Component {
     this.setState({ data: this.state.data.filter((el) => el.id !== id) });
   };
 
-  editFeedback = (feed) => {
-    this.setState({ edit: { isEdited: true, editFeed: feed } });
+  editFeedback = (id) => {
+    const filteredData = this.state.data.filter((el) => el.id !== id);
+
+    const selectedData = this.state.data.find((el) => el.id === id);
+    console.log(selectedData);
   };
 
   componentDidMount() {
@@ -50,6 +54,7 @@ class App extends React.Component {
           <FeedbackLists
             feedbacks={this.state.data}
             deleteFeedback={this.deleteFeedback}
+            editFeedback={this.editFeedback}
           />
         </Container>
         <Footer />
